@@ -13,6 +13,7 @@ use interfaces\UserIdentityInterface;
 /**
  * Class User
  * @package models
+ * @property \models\Note[] $notes
  */
 class User extends ModelAbstract implements UserIdentityInterface
 {
@@ -148,6 +149,14 @@ class User extends ModelAbstract implements UserIdentityInterface
     public function getSource()
     {
         return 'user';
+    }
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', Note::className(), 'user_id', ['alias' => 'notes']);
     }
 
     /**

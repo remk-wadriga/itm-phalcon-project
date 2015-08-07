@@ -65,10 +65,28 @@ abstract class ControllerAbstract extends Controller
         return $this->_exception;
     }
 
+    /**
+     * exception
+     * @param $message
+     * @param int $code
+     * @return bool
+     */
     protected function exception($message, $code = 500)
     {
         $this->_exception = new Exception($message, $code);
         return false;
+    }
+
+    /**
+     * param
+     * @param $name
+     * @param null $defaultValue
+     * @param null $filters
+     * @return mixed
+     */
+    public function param($name, $defaultValue = null, $filters = null)
+    {
+        return $this->dispatcher->getParam($name, $filters, $defaultValue);
     }
 
     /**

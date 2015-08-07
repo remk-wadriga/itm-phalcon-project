@@ -6,10 +6,8 @@
  */
 
 use Phalcon\Di\FactoryDefault;
-use Phalcon\Mvc\View;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Mvc\Dispatcher;
 use components\TimeService;
@@ -32,6 +30,10 @@ $di->set('eventManager', function(){
     return new EventManager();
 });
 
+$di->setShared('router', function()use($config){
+    return require(APP_PATH . '/app/config/_router_def.php');
+});
+
 /**
  * The URL component is used to generate all kind of urls in the application
  */
@@ -46,45 +48,7 @@ $di->set('url', function()use($config){
  * Setting up the view component
  */
 $di->setShared('view', function()use($config){
-    $view = new View();
-    $view->setViewsDir($config->application->viewsDir);
-    $view->setVars($config->view->vars->toArray());
-
-    $view->registerEngines([
-        '.volt' => function($view, $di)use($config){
-            $volt = new VoltEngine($view, $di);
-            $volt->setOptions($config->volt->options->toArray());
-
-            $functions = $config->volt->functions->toArray();
-            foreach($functions as $name => $function){
-                $volt->getCompiler()->addFunction($name, function($params)use($function) {
-                    if(is_array($function)){
-                        $funcArray = $function;
-                        $function = $funcArray['function'];
-                        if(isset($funcArray['params']) && !empty($funcArray['params'])){
-                            if(!is_array($params)){
-                                $params = (array)$params;
-                            }
-                            $params = array_merge($params, $funcArray['params']);
-                            $params = serialize(array_filter($params));
-                            return "$function(unserialize('{$params}'))";
-                        }
-                    }
-
-                    if(strpos($function, '{params}') !== false){
-                        return str_replace('{params}', $params, $function);
-                    }else{
-                        return "{$function}({$params})";
-                    }
-                });
-            }
-
-            return $volt;
-        },
-        '.phtml' => 'Phalcon\Mvc\View\Engine\Php'
-    ]);
-
-    return $view;
+    return require(APP_PATH . '/app/config/_view_def.php');
 });
 
 /**

@@ -2,6 +2,8 @@
 
 defined('APP_PATH') || define('APP_PATH', realpath('.'));
 
+$routes = require(APP_PATH . '/app/config/routes.php');
+
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
@@ -30,6 +32,8 @@ return new \Phalcon\Config([
         'widgetsPath'       => APP_PATH . '/app/widgets',
 
         'baseUri'           => '/',
+        'defaultAction'     => 'index',
+        'defaultRoute'      => 'index/index',
     ],
 
     'timeService' => [
@@ -82,5 +86,12 @@ return new \Phalcon\Config([
         'widgets' => [
             'accordion',
         ],
+    ],
+
+    'router' => [
+        'params' => [
+
+        ],
+        'routes' => $routes,
     ],
 ]);
