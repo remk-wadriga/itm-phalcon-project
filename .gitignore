@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+.phalcon
+vendor
+app/cache
+
+composer.lock
