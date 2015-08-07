@@ -53,6 +53,11 @@ abstract class ModelAbstract extends Model
         }
     }
 
+    public function beforeValidation()
+    {
+        return true;
+    }
+
     /**
      * getTimeService
      * @return \components\TimeService
@@ -60,6 +65,15 @@ abstract class ModelAbstract extends Model
     protected function timeService()
     {
         return $this->getService('timeService');
+    }
+
+    /**
+     * user
+     * @return \components\UserService
+     */
+    protected function user()
+    {
+        return $this->getService('user');
     }
 
     /**

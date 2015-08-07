@@ -80,10 +80,7 @@ return new \Phalcon\Config([
     'widget' => [
         'widgetsNameSpace' => 'widgets',
         'widgets' => [
-            'accordion' => [
-                'modelClass' => '\\models\\LeftMenu',
-                'methodName' => 'getItemsArray',
-            ],
+            'accordion',
         ],
     ],
 ]);

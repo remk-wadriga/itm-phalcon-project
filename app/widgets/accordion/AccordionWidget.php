@@ -19,8 +19,7 @@ class AccordionWidget extends WidgetAbstract
 
     public $modelClass;
     public $methodName;
-
-    protected $_items;
+    public $items;
 
     public function init()
     {
@@ -42,20 +41,20 @@ class AccordionWidget extends WidgetAbstract
 
     public function getItems()
     {
-        if($this->_items !== null){
-            return $this->_items;
+        if($this->items !== null){
+            return $this->items;
         }
 
         $class = $this->modelClass;
         $method = $this->methodName;
 
-        $this->_items = [];
+        $this->items = [];
 
         if(class_exists($class) && method_exists($class, $method)){
-            $this->_items = $class::$method();
+            $this->items = $class::$method();
         }
 
-        return $this->_items;
+        return $this->items;
     }
 
     protected function renderItems(array $items = null)

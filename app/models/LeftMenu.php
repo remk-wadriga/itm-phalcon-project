@@ -119,6 +119,7 @@ class LeftMenu extends ModelAbstract
 
     /**
      * getItemsArray
+     * @param int $parent
      * @return array
      */
     public static function getItemsArray($parent = 0)

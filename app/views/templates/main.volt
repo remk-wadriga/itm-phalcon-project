@@ -24,7 +24,9 @@
 
             <div class="col-md-3" id="left_menu">
                 {% block leftMenu %}
-                    {{ widget.run('accordion') }}
+                    {% if leftMenuItems is defined  %}
+                        {{ widget.run('accordion', {'items': leftMenuItems}) }}
+                    {% endif %}
                 {% endblock %}
             </div>
 

@@ -14,6 +14,7 @@ use Phalcon\Exception;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\StringLength;
+use Phalcon\Mvc\Model\Message;
 
 class LoginForm extends FormAbstract
 {
@@ -52,6 +53,11 @@ class LoginForm extends FormAbstract
 
         $this->setAttributes($data);
 
-        return $this->user()->login($this->email, $this->password);
+        $result = $this->user()->login($this->email, $this->password);
+        if(!$result){
+            $this->appendMessage(new Message('Incorrect login or password'));
+        }
+
+        return $result;
     }
 }

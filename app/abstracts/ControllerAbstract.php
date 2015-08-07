@@ -9,6 +9,7 @@
 
 namespace abstracts;
 
+use models\LeftMenu;
 use Phalcon\Exception;
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
@@ -28,6 +29,7 @@ abstract class ControllerAbstract extends Controller
 
     public function beforeAction()
     {
+        $this->view->setVar('leftMenuItems', LeftMenu::getItemsArray());
         return true;
     }
 

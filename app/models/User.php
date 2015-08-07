@@ -137,11 +137,7 @@ class User extends ModelAbstract implements UserIdentityInterface
             'max' => 36,
         ]));
 
-        if ($this->validationHasFailed() == true) {
-            return false;
-        }
-
-        return true;
+        return !$this->validationHasFailed();
     }
 
     /**
@@ -210,7 +206,7 @@ class User extends ModelAbstract implements UserIdentityInterface
             $this->password_hash = $this->createPasswordHash();
         }
 
-        return true;
+        return parent::beforeValidation();
     }
 
     // END Events
