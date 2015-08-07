@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 5.6.22-log : Database - phalcon
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -57,8 +58,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
-
-insert  into `user`(`id`,`email`,`password_hash`,`first_name`,`last_name`,`phone`,`reg_date`,`last_visit_date`,`role`,`status`,`info`,`rating`) values (1,'remkwadriga@yandex.ua','9f70396df11e88cf40fabb79b5ddadc6','Dmitry','Kushneriov','(063)568-86-19','2015-08-03 15:56:15','2015-08-04 13:48:53','ROLE_ADMIN','STATUS_ACTIVE',NULL,0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -15,50 +15,6 @@ use Phalcon\Mvc\Model\Message;
 
 abstract class ModelAbstract extends Model
 {
-    private $_isNew = false;
-
-    public function update($data = null, $whiteList = null)
-    {
-        $this->_isNew = false;
-        return parent::update($data, $whiteList);
-    }
-
-    public function save($data = null, $whiteList = null)
-    {
-        $this->_isNew = !isset($this->id);
-
-        $data = $this->beforeSave($data);
-        if(!is_array($data)){
-            return false;
-        }
-
-        $result = parent::save($data, $whiteList);
-
-        $this->afterSave($data);
-
-        return $result;
-    }
-
-    public function create($data = null, $whiteList = null)
-    {
-        $this->_isNew = true;
-    }
-
-    public function beforeSave($data = null)
-    {
-        return $data;
-    }
-
-    public function afterSave($data = null)
-    {
-
-    }
-
-    public function isNew()
-    {
-        return $this->_isNew;
-    }
-
     public static function className()
     {
         return get_called_class();

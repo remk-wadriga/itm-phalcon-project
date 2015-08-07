@@ -179,42 +179,38 @@ class User extends ModelAbstract implements UserIdentityInterface
 
     // Events
 
-    public function beforeSave($data = null)
+    public function beforeValidation()
     {
-        if(!$this->isNew()){
-            return true;
-        }
-
         $validation = new Validation();
         $validation->add('password', new Confirmation(array(
             'message' => 'Password doesn\'t match confirmation',
             'with' => 'retype_password'
         )));
 
-        $validation->validate($data);
+        $validation->validate(['password' => $this->password, 'retype_password' => $this->retype_password]);
         $this->addMessages($validation->getMessages());
 
         if(!empty($this->getMessages())){
             return false;
         }
 
-        if(!isset($data['reg_date'])){
-            $data['reg_date'] = $this->timeService()->currentDateTime();
+        if($this->reg_date === null){
+            $this->reg_date = $this->timeService()->currentDateTime();
         }
-        if(!isset($data['role'])){
-            $data['role'] = self::ROLE_USER;
+        if($this->role === null){
+            $this->role = self::ROLE_USER;
         }
-        if(!isset($data['status'])){
-            $data['status'] = self::STATUS_NEW;
+        if($this->status === null){
+            $this->status = self::STATUS_NEW;
         }
-        if(!isset($data['rating'])){
-            $data['rating'] = (int)$this->rating;
+        if($this->rating === null){
+            $this->rating = (int)$this->rating;
         }
-        if(isset($data['password'])){
-            $data['password_hash'] = $this->createPasswordHash($data['password'], $data['reg_date'], $data['email']);
+        if($this->password !== null){
+            $this->password_hash = $this->createPasswordHash();
         }
 
-        return $data;
+        return true;
     }
 
     // END Events
